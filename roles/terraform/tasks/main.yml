@@ -1,0 +1,14 @@
+---
+- name: Check terraform version
+  shell: terraform --version
+  register: terraform_current_version
+  failed_when: false
+  changed_when: false
+
+- name: Install terraform from upstream
+  unarchive:
+    src: "{{ terraform_url }}"
+    dest: "/usr/local/bin"
+    remote_src: True
+    validate_certs: False
+  when: terraform_version not in terraform_current_version.stdout

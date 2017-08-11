@@ -1,0 +1,33 @@
+---
+- name: Remove old docker packages
+  dnf:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker
+    - docker-engine
+
+- name: Install docker repository key
+  rpm_key:
+    key: https://download.docker.com/linux/fedora/gpg
+
+- name: Install docker repository
+  yum_repository:
+    name: docker
+    description: Docker CE Stable
+    baseurl: "https://download.docker.com/linux/fedora/25/x86_64/stable"
+    gpgkey: https://download.docker.com/linux/fedora/gpg
+    gpgcheck: yes
+
+- name: Install docker
+  dnf:
+    name: "{{ item }}"
+  with_items:
+    - docker-ce
+    - python-docker-py
+
+- name: Start docker daemon
+  systemd:
+    name: docker
+    enabled: yes
+    state: started

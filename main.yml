@@ -1,0 +1,55 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+  pre_tasks:
+    - include: update_os.yml
+
+    - name: Install prerequisites
+      package:
+        name: "{{ item }}"
+      with_items:
+        - git
+        - python-pip
+
+  roles:
+    - ansible
+    - vagrant
+    - golang
+    - terraform
+    - docker
+    - chrome
+    - sublimetext
+    - virtualbox
+    - franz
+    - spotify
+
+  tasks:
+    - name: Install utils
+      package:
+        name: "{{ item }}"
+      with_items:
+       - tmux
+       - vim
+       - zsh
+       - jq
+
+    - name: Install utils from pip
+      pip:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - awscli
+
+    - name: Install GUI utils
+      package:
+        name: "{{ item }}"
+      with_items:
+        - terminator
+        - pidgin
+        - pidgin-sipe
+
+- hosts: localhost
+  connection: local
+  tasks:
+    - include: user.yml

@@ -1,0 +1,20 @@
+---
+- name: Install VirtualBox repository key
+  rpm_key:
+    key: https://www.virtualbox.org/download/oracle_vbox.asc
+
+- name: Install VirtualBox repository
+  yum_repository:
+    name: virtualbox
+    description: Oracle Virtual Box
+    baseurl: http://download.virtualbox.org/virtualbox/rpm/fedora/{{ ansible_distribution_version }}/x86_64
+    gpgkey: https://www.virtualbox.org/download/oracle_vbox.asc
+    gpgcheck: yes
+
+- name: Install VirtualBox
+  dnf:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - dkms
+    - VirtualBox-5.1

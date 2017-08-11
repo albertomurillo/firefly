@@ -1,0 +1,14 @@
+---
+- name: "Install chrome repository key"
+  apt_key:
+    url: "{{ chrome_repository_key_url }}"
+
+- name: "Install chrome repository"
+  copy:
+    content: "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
+    dest: "/etc/apt/sources.list.d/google-chrome.list"
+
+- name: "Install chrome"
+  apt:
+    name: "{{ chrome_package }}"
+    update_cache: yes

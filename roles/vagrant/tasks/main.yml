@@ -1,0 +1,20 @@
+---
+- name: Check vagrant version
+  shell: vagrant --version
+  register: check_version
+  failed_when: false
+  changed_when: false
+
+- block:
+    - name: Install vagrant in Ubuntu
+      apt:
+        deb: "https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb"
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Install vagrant in Fedora
+      dnf:
+        name: "https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.rpm"
+      when: ansible_distribution == "Fedora"
+  when:
+    check_version.rc != 0 or
+    check_version.stdout.split()[1] != vagrant_version

@@ -1,0 +1,4 @@
+---
+franz_version: 4.0.4
+franz_md5: ca82dfa30b0611b4aaed62859dbedaa1
+franz_pkg_url: "https://github.com/meetfranz/franz-app/releases/download/{{ franz_version }}/Franz-linux-x64-{{ franz_version }}.tgz"

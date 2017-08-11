@@ -1,0 +1,10 @@
+---
+- name: Install ansible repository
+  apt_repository:
+    repo: ppa:ansible/ansible
+
+- name: Install ansible
+  apt:
+    name: ansible
+    state: latest
+    update_cache: yes

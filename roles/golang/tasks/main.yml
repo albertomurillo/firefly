@@ -1,0 +1,16 @@
+---
+- name: Check Go version
+  shell: /usr/local/go/bin/go version
+  register: go_version
+  failed_when: false
+  changed_when: false
+
+- name: Install Go from upstream
+  unarchive:
+    src: "https://golang.org/dl/go{{ golang_version }}.linux-amd64.tar.gz"
+    dest: "/usr/local"
+    remote_src: True
+  when: golang_version not in go_version.stdout
+
+- name: Link golang
+  file: src=/usr/local/go/bin/go dest=/usr/bin/go state=link

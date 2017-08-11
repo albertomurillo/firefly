@@ -1,0 +1,40 @@
+---
+- name: Check franz md5sum
+  stat:
+    path: /opt/franz/Franz
+    get_md5: yes
+  register: franz_stat
+
+- block:
+  - name: Create Franz Destination Dir
+    file:
+      path: "/opt/franz"
+      owner: root
+      group: root
+      mode: 0644
+      state: directory
+
+  - name: Install Franz
+    unarchive:
+      src: "{{ franz_pkg_url }}"
+      dest: "/opt/franz"
+      remote_src: True
+
+  - name: Create .desktop File for Start Menu
+    copy:
+      content: |
+        [Desktop Entry]
+        Name=Franz
+        Comment=
+        Exec=/opt/franz/Franz
+        Icon=/opt/franz/resources/app.asar.unpacked/assets/franz.png
+        Terminal=false
+        Type=Application
+        Categories=Messaging,Internet
+      dest: /usr/share/applications/franz.desktop
+      owner: root
+      group: root
+      mode: 0644
+  when:
+    not franz_stat.stat.exists or
+    franz_stat.stat.md5 != franz_md5
