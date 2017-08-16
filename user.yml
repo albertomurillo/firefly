@@ -1,7 +1,4 @@
 ---
-- name: Set username
-  set_fact: username={{ ansible_env.USER }}
-
 - name: Create /etc/sudores.d
   become: yes
   file:
@@ -14,29 +11,24 @@
     dest: /etc/sudoers.d/{{ username }}
     content: "{{ username }} ALL=(ALL) NOPASSWD:ALL"
 
-- name: Add {{ username }} user to docker group
-  become: yes
-  user:
-    name: "{{ username }}"
-    groups: docker
-    append: yes
+- block:
+  - name: Add {{ username }} user to docker group
+    become: yes
+    user:
+      name: "{{ username }}"
+      groups: docker
+      append: yes
 
-- name: Install arc theme
-  become: yes
-  package:
-    name: arc-theme
+  - name: Install arc theme
+    become: yes
+    package:
+      name: arc-theme
 
-- name: Install unity-tweak-tool
-  become: yes
-  apt:
-    name: "{{ item }}"
-  with_items:
-    - unity-tweak-tool
-  when: ansible_distribution == "Ubuntu"
-
-- name: Enable WSL access
-  lineinfile:
-    path: "/home/{{ username }}/.bashrc"
-    regexp: '^export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS'
-    line: 'export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS=1'
-  when: "'Microsoft' in ansible_kernel"
+  - name: Install unity-tweak-tool
+    become: yes
+    apt:
+      name: "{{ item }}"
+    with_items:
+      - unity-tweak-tool
+    when: ansible_distribution == "Ubuntu"
+  when: not is_wsl

@@ -3,6 +3,9 @@
   connection: local
   become: yes
   pre_tasks:
+    - name: Check if is WSL
+      set_fact: is_wsl="{{ true if 'Microsoft' in ansible_kernel else false }}"
+
     - include: update_os.yml
 
     - name: Install prerequisites
@@ -18,11 +21,11 @@
     - golang
     - terraform
     - docker
-    - chrome
     - sublimetext
-    - virtualbox
-    - franz
-    - spotify
+    - { role: chrome, when: not is_wsl }
+    - { role: virtualbox, when: not is_wsl }
+    - { role: franz, when: not is_wsl }
+    - { role: spotify, when: not is_wsl }
 
   tasks:
     - name: Install utils
@@ -48,8 +51,16 @@
         - terminator
         - pidgin
         - pidgin-sipe
+      when: not is_wsl
 
 - hosts: localhost
   connection: local
   tasks:
+    - name: Set username
+      set_fact: username={{ ansible_env.USER }}
+
     - include: user.yml
+
+    - include: wsl.yml
+      when: is_wsl
+      static: no

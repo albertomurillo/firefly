@@ -1,0 +1,11 @@
+---
+- name: Enable WSL access
+  lineinfile:
+    path: "/home/{{ username }}/.bashrc"
+    regexp: '^export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS'
+    line: 'export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS=1'
+  when: "'Microsoft' in ansible_kernel"
+
+- name: Install libgtk2.0 (Required for sublimetext)
+  apt:
+    name: libgtk2.0-0
