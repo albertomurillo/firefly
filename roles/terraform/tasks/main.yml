@@ -11,4 +11,5 @@
     dest: "/usr/local/bin"
     remote_src: True
     validate_certs: False
-  when: terraform_version not in terraform_current_version.stdout_lines[0]
+  when: terraform_current_version.rc != 0 or
+        terraform_version not in terraform_current_version.stdout_lines[0]
