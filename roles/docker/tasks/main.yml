@@ -19,4 +19,5 @@
     dest: /usr/local/bin/docker-compose
     force: yes
     mode: 0755
-  when: docker_compose_version not in docker_compose_current_version.stdout.split(' ')[2]
+  when: docker_compose_current_version.rc != 0 or
+        docker_compose_version not in docker_compose_current_version.stdout.split(' ')[2]
