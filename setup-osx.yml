@@ -1,0 +1,53 @@
+---
+- hosts: all
+  tasks:
+    - name: Give passwordless access to {{ ansible_user }}
+      become: yes
+      copy:
+        dest: /etc/sudoers.d/{{ ansible_user }}
+        content: "{{ ansible_user }} ALL=(ALL) NOPASSWD:ALL"
+
+    - name: Install utils
+      homebrew:
+        name: "{{ item }}"
+      with_items:
+        - ansible
+        - ffmpeg
+        - gnu-sed
+        - htop
+        - kubernetes-helm
+        - packer
+        - pv
+        - rbenv
+        - tmux
+        - wget
+        - zsh
+
+    - name: Install apps
+      homebrew_cask:
+        name: "{{ item }}"
+      with_items:
+        - docker
+        - franz
+        - google-chrome
+        - hipchat
+        - iterm2
+        - minikube
+        - skype
+        - skype-for-business
+        - slack
+        - slate
+        - spotify
+        - subler
+        - sublime-text
+        - transmission
+        - vagrant
+        - virtualbox
+        - visual-studio-code
+        - vlc
+        - xquartz
+
+    - name: Install tools from pip
+      become: yes
+      pip:
+        name: docker-py
