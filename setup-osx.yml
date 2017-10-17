@@ -50,4 +50,7 @@
     - name: Install tools from pip
       become: yes
       pip:
-        name: docker-py
+        name: "{{ item }}"
+      with_items:
+        - docker-py
+        - yamllint
