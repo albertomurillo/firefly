@@ -50,6 +50,7 @@
     - name: Install tools from pip
       become: yes
       pip:
+        executable: /usr/local/bin/pip
         name: "{{ item }}"
       with_items:
         - docker-py
