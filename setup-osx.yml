@@ -12,13 +12,17 @@
         name: "{{ item }}"
       with_items:
         - ansible
+        - docker-compose
         - ffmpeg
         - gnu-sed
+        - gnu-tar
         - htop
         - kubernetes-helm
+        - npm
         - packer
         - pv
         - rbenv
+        - terraform
         - tmux
         - wget
         - zsh
@@ -53,5 +57,6 @@
         executable: /usr/local/bin/pip
         name: "{{ item }}"
       with_items:
+        - ansible-lint
         - docker-py
         - yamllint
