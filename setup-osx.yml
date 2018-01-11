@@ -1,5 +1,6 @@
 ---
-- hosts: all
+- hosts: localhost
+  connection: local
   tasks:
     - name: Give passwordless access to {{ ansible_user }}
       become: yes
@@ -7,11 +8,19 @@
         dest: /etc/sudoers.d/{{ ansible_user }}
         content: "{{ ansible_user }} ALL=(ALL) NOPASSWD:ALL"
 
+    - name: Tap custom repositories
+      homebrew_tap:
+        name: "{{ item }}"
+      with_items:
+        - caskroom/drivers
+        - wata727/tflint
+
     - name: Install utils
       homebrew:
         name: "{{ item }}"
       with_items:
         - ansible
+        - clang-format
         - docker-compose
         - ffmpeg
         - gnu-sed
@@ -23,14 +32,17 @@
         - pv
         - rbenv
         - terraform
+        - tflint
         - tmux
         - wget
+        - xz
         - zsh
 
     - name: Install apps
       homebrew_cask:
         name: "{{ item }}"
       with_items:
+        - displaylink
         - docker
         - franz
         - google-chrome
