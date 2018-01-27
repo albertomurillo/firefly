@@ -20,18 +20,27 @@
         name: "{{ item }}"
       with_items:
         - ansible
+        - ansible-lint
+        - awscli
         - clang-format
         - docker-compose
         - ffmpeg
         - gnu-sed
         - gnu-tar
+        - gnupg
+        - go
         - htop
+        - jmeter
+        - jq
+        - kubernetes-cli
         - kubernetes-helm
+        - mariadb
         - npm
         - packer
         - pv
         - rbenv
         - terraform
+        - terraform-docs
         - tflint
         - tmux
         - wget
@@ -42,26 +51,39 @@
       homebrew_cask:
         name: "{{ item }}"
       with_items:
+        # Drivers
+        - bose-updater
         - displaylink
+        - jabra-suite
+        # Development
+        - chefdk
         - docker
-        - franz
-        - google-chrome
-        - hipchat
+        - google-cloud-sdk
         - iterm2
         - minikube
-        - skype
-        - skype-for-business
-        - slack
-        - slate
-        - spotify
-        - subler
         - sublime-text
-        - transmission
         - vagrant
         - virtualbox
         - visual-studio-code
+        # Messaging
+        - franz
+        - skype
+        - skype-for-business
+        - slack
+        # Media
+        - calibre
+        - spotify
+        - subler
+        - transmission
         - vlc
+        # Desktop
+        - google-chrome
+        - onedrive
+        - slate
         - xquartz
+        # Network
+        - charles
+        - wireshark
 
     - name: Install tools from pip
       become: yes
@@ -69,6 +91,5 @@
         executable: /usr/local/bin/pip
         name: "{{ item }}"
       with_items:
-        - ansible-lint
         - docker-py
         - yamllint
