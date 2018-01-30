@@ -93,3 +93,17 @@
       with_items:
         - docker-py
         - yamllint
+
+    - name: Install dark theme for slack
+      blockinfile:
+        path: /Applications/Slack.app/Contents/Resources/app.asar.unpacked/src/static/ssb-interop.js
+        marker: "// {mark} ANSIBLE MANAGED BLOCK"
+        block: |
+          document.addEventListener('DOMContentLoaded', function() {
+            $.ajax({
+              url: 'https://cdn.rawgit.com/laCour/slack-night-mode/master/css/raw/black.css',
+              success: function(css) {
+                $("<style></style>").appendTo('head').html(css);
+              }
+            });
+          });
