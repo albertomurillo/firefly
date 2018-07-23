@@ -3,64 +3,47 @@
   connection: local
   become: yes
   pre_tasks:
-    - name: Check if is WSL
-      set_fact: is_wsl="{{ true if 'Microsoft' in ansible_kernel else false }}"
-
     - include: update_os.yml
 
-    - name: Install prerequisites
-      package:
-        name: "{{ item }}"
-      with_items:
-        - git
-        - python-pip
-
   roles:
-    - ansible
-    - vagrant
-    - golang
+    # # Replace for snaps?
+    # - gantsign.visual-studio-code
+    # - keyboardinterrupt.sublime-text-3
+    # - iknite.spotify
+    # - geerlingguy.docker
+    # - mhalano.skypeforlinux
+    # # End of packages available as snaps
+    # - cmprescott.chrome
+    # - gantsign.oh-my-zsh
+    # # TODO: Move these roles to galaxy
+    # - franz
     - terraform
-    - docker
-    - sublimetext
-    - { role: chrome, when: not is_wsl }
-    - { role: virtualbox, when: not is_wsl }
-    - { role: franz, when: not is_wsl }
-    - { role: spotify, when: not is_wsl }
+    - golang
 
-  tasks:
-    - name: Install utils
-      package:
-        name: "{{ item }}"
-      with_items:
-       - tmux
-       - vim
-       - zsh
-       - jq
 
-    - name: Install utils from pip
-      pip:
-        name: "{{ item }}"
-        state: latest
-      with_items:
-        - awscli
+  # tasks:
+  #   - name: Install utils
+  #     package:
+  #       name: "{{ item }}"
+  #     with_items:
+  #      - tmux
+  #      - vim
+  #      - zsh
+  #      - jq
+  #      - virtualbox
+  #      - vagrant
 
-    - name: Install GUI utils
-      package:
-        name: "{{ item }}"
-      with_items:
-        - terminator
-        - pidgin
-        - pidgin-sipe
-      when: not is_wsl
+    # - name: Install snaps
+    #   shell: "snap install {{ item }}"
+    #   with_items:
+    #     - slack --classic
+    #   register: snap
+    #   changed_when: not "'is already installed' in snap.stderr"
 
-- hosts: localhost
-  connection: local
-  tasks:
-    - name: Set username
-      set_fact: username={{ ansible_env.USER }}
+# - hosts: localhost
+#   connection: local
+#   tasks:
+#     - name: Set username
+#       set_fact: username={{ ansible_env.USER }}
 
-    - include: user.yml
-
-    - include: wsl.yml
-      when: is_wsl
-      static: no
+#     - include: user.yml

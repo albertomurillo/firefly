@@ -13,4 +13,8 @@
   when: golang_version not in go_version.stdout
 
 - name: Link golang
-  file: src=/usr/local/go/bin/go dest=/usr/bin/go state=link
+  file: src=/usr/local/go/bin/{{ item }} dest=/usr/bin/{{ item }} state=link
+  with_items:
+    - go
+    - gofmt
+    - godoc

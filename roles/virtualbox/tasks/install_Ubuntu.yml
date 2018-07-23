@@ -7,11 +7,11 @@
   apt_repository:
     repo: "deb http://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }} contrib"
 
-- name: Install VirtualBox
-  apt:
-    name: "{{ item }}"
-    state: latest
-    update_cache: yes
-  with_items:
-    - dkms
-    - virtualbox-5.1
+# - name: Install VirtualBox
+#   apt:
+#     name: "{{ item }}"
+#     state: latest
+#     update_cache: yes
+#   with_items:
+#     - dkms
+#     - virtualbox-5.1

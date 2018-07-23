@@ -1,9 +1,0 @@
----
-- name: Install ansible
-  dnf:
-    name: ansible
-
-# - name: Install ansible from pip
-#   pip:
-#     name: ansible
-#     state: latest

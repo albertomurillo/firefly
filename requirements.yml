@@ -1,0 +1,10 @@
+---
+- src: cmprescott.chrome
+- src: gantsign.visual-studio-code
+- src: geerlingguy.docker
+- src: iknite.spotify
+- git: https://github.com/KeyboardInterrupt/ansible-role-sublime-text-3
+  version: v1.0.0
+  name: keyboardinterrupt.sublime-text-3
+- src: mhalano.skypeforlinux
+- src: gantsign.oh-my-zsh
