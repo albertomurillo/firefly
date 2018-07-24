@@ -1,49 +1,48 @@
 ---
 - hosts: localhost
   connection: local
+  tasks:
+    - include: sudoers.yml
+
+- hosts: localhost
+  connection: local
   become: yes
   pre_tasks:
-    - include: update_os.yml
+    - name: Update all packages in Ubuntu
+      apt:
+        upgrade: dist
+        update_cache: yes
 
   roles:
-    # # Replace for snaps?
-    # - gantsign.visual-studio-code
-    # - keyboardinterrupt.sublime-text-3
-    # - iknite.spotify
-    # - geerlingguy.docker
-    # - mhalano.skypeforlinux
-    # # End of packages available as snaps
-    # - cmprescott.chrome
-    # - gantsign.oh-my-zsh
-    # # TODO: Move these roles to galaxy
-    # - franz
+    # Replace for snaps?
+    - gantsign.visual-studio-code
+    - keyboardinterrupt.sublime-text-3
+    - iknite.spotify
+    - geerlingguy.docker
+    - mhalano.skypeforlinux
+    # End of packages available as snaps
+    - cmprescott.chrome
+    - gantsign.oh-my-zsh
+    # TODO: Move these roles to galaxy
+    - franz
     - terraform
     - golang
 
+  tasks:
+    - name: Install utils
+      package:
+        name: "{{ item }}"
+      with_items:
+       - tmux
+       - vim
+       - zsh
+       - jq
+       - virtualbox
+       - vagrant
 
-  # tasks:
-  #   - name: Install utils
-  #     package:
-  #       name: "{{ item }}"
-  #     with_items:
-  #      - tmux
-  #      - vim
-  #      - zsh
-  #      - jq
-  #      - virtualbox
-  #      - vagrant
-
-    # - name: Install snaps
-    #   shell: "snap install {{ item }}"
-    #   with_items:
-    #     - slack --classic
-    #   register: snap
-    #   changed_when: not "'is already installed' in snap.stderr"
-
-# - hosts: localhost
-#   connection: local
-#   tasks:
-#     - name: Set username
-#       set_fact: username={{ ansible_env.USER }}
-
-#     - include: user.yml
+    - name: Install snaps
+      shell: "snap install {{ item }}"
+      with_items:
+        - slack --classic
+      register: snap
+      changed_when: not "'is already installed' in snap.stderr"

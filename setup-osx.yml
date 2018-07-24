@@ -1,19 +1,9 @@
+#!/usr/bin/env ansible-playbook
 ---
 - hosts: localhost
   connection: local
   tasks:
-    - name: Give passwordless access to {{ ansible_user }}
-      become: yes
-      copy:
-        dest: /etc/sudoers.d/{{ ansible_user }}
-        content: "{{ ansible_user }} ALL=(ALL) NOPASSWD:ALL"
-
-    - name: Tap custom repositories
-      homebrew_tap:
-        name: "{{ item }}"
-      with_items:
-        - caskroom/drivers
-        - wata727/tflint
+    - include: sudoers.yml
 
     - name: Install utils
       homebrew:
@@ -30,69 +20,53 @@
         - gnupg
         - go
         - htop
-        - jmeter
         - jq
         - kubernetes-cli
         - kubernetes-helm
-        - mariadb
         - npm
-        - packer
         - pv
         - rbenv
         - terraform
         - terraform-docs
-        - tflint
         - tmux
+        - wata727/tflint/tflint
         - wget
         - xz
+        - yamllint
         - zsh
 
     - name: Install apps
       homebrew_cask:
         name: "{{ item }}"
       with_items:
-        # Drivers
-        - bose-updater
-        - displaylink
-        - jabra-suite
-        # Development
-        - chefdk
-        - docker
-        - google-cloud-sdk
-        - iterm2
-        - minikube
-        - sublime-text
-        - vagrant
-        - virtualbox
-        - visual-studio-code
+        # Desktop
+        - google-chrome
+        - onedrive
+        - slate
+        - xquartz
         # Messaging
         - franz
+        - slack
         - skype
         - skype-for-business
-        - slack
+        # Development
+        # - chefdk
+        - iterm2
+        - sublime-text
+        - visual-studio-code
+        - docker
+        - virtualbox
+        - vagrant
+        - minikube
+        - google-cloud-sdk
         # Media
         - calibre
         - spotify
         - subler
         - transmission
         - vlc
-        # Desktop
-        - google-chrome
-        - onedrive
-        - slate
-        - xquartz
         # Network
-        - charles
         - wireshark
-
-    - name: Install tools from pip
-      become: yes
-      pip:
-        executable: /usr/local/bin/pip
-        name: "{{ item }}"
-      with_items:
-        - docker-py
-        - yamllint
 
     - name: Install dark theme for slack
       blockinfile:

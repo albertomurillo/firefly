@@ -1,0 +1,12 @@
+---
+- name: Create /etc/sudores.d
+  become: yes
+  file:
+    path: /etc/sudoers.d
+    state: directory
+
+- name: Give passwordless access to {{ ansible_user }}
+  become: yes
+  copy:
+    dest: /etc/sudoers.d/{{ ansible_user }}
+    content: "{{ ansible_user }} ALL=(ALL) NOPASSWD:ALL"
