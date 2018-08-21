@@ -14,6 +14,7 @@
         - awscli
         - clang-format
         - docker-compose
+        - dos2unix
         - ffmpeg
         - gnu-sed
         - gnu-tar
@@ -21,8 +22,10 @@
         - go
         - htop
         - jq
+        - kubectx
         - kubernetes-cli
         - kubernetes-helm
+        - nmap
         - npm
         - pv
         - rbenv
@@ -30,6 +33,7 @@
         - terraform-docs
         - tmux
         - wata727/tflint/tflint
+        - watch
         - wget
         - xz
         - yamllint
@@ -57,7 +61,6 @@
         - docker
         - virtualbox
         - vagrant
-        - minikube
         - google-cloud-sdk
         # Media
         - calibre
