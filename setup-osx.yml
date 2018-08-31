@@ -26,9 +26,12 @@
         - kubernetes-cli
         - kubernetes-helm
         - nmap
+        - node
         - npm
         - pv
         - rbenv
+        - shellcheck
+        - shfmt
         - terraform
         - terraform-docs
         - tmux
@@ -49,10 +52,10 @@
         - slate
         - xquartz
         # Messaging
-        - franz
-        - slack
+        - rambox
         - skype
         - skype-for-business
+        - slack
         # Development
         # - chefdk
         - iterm2
