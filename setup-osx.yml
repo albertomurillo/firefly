@@ -9,33 +9,53 @@
       homebrew:
         name: "{{ item }}"
       with_items:
+        # python
+        - autopep8
+        - pycodestyle
+        # bash
+        - bats
+        - shellcheck
+        - shfmt
+        # java
+        - checkstyle
+        - google-java-format
+        - gradle
+        - maven
+        - sonarlint
+        - spotbugs
+        # C
+        - clang-format
+        # Go
+        - go
+        # node.js
+        - node
+        # Containers & Cloud
+        - awscli
+        - boz/repo/kail
+        - docker-compose
+        - jq
+        - jsonnet
+        - ksonnet/tap/ks
+        - kubectx
+        - kubernetes-cli
+        - kubernetes-helm
+        - terraform
+        - terraform-docs
+        - wata727/tflint/tflint
+        # Others
         - ansible
         - ansible-lint
-        - awscli
-        - clang-format
-        - docker-compose
         - dos2unix
         - ffmpeg
         - gnu-sed
         - gnu-tar
         - gnupg
-        - go
         - htop
-        - jq
-        - kubectx
-        - kubernetes-cli
-        - kubernetes-helm
         - nmap
-        - node
         - npm
         - pv
         - rbenv
-        - shellcheck
-        - shfmt
-        - terraform
-        - terraform-docs
         - tmux
-        - wata727/tflint/tflint
         - watch
         - wget
         - xz
@@ -87,3 +107,5 @@
               }
             });
           });
+      tags:
+        - slack
