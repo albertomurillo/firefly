@@ -17,12 +17,12 @@
         - shellcheck
         - shfmt
         # java
-        - checkstyle
-        - google-java-format
-        - gradle
-        - maven
-        - sonarlint
-        - spotbugs
+        # - checkstyle
+        # - google-java-format
+        # - gradle
+        # - maven
+        # - sonarlint
+        # - spotbugs
         # C
         - clang-format
         # Go
@@ -78,15 +78,16 @@
         - slack
         # Development
         # - chefdk
+        - docker
+        - google-cloud-sdk
         - iterm2
         - sublime-text
-        - visual-studio-code
-        - docker
-        - virtualbox
         - vagrant
-        - google-cloud-sdk
+        - virtualbox
+        - visual-studio-code
         # Media
         - calibre
+        - plex-media-server
         - spotify
         - subler
         - transmission
