@@ -7,8 +7,7 @@
 
     - name: Install utils
       homebrew:
-        name: "{{ item }}"
-      with_items:
+        name:
         # python
         - autopep8
         - pycodestyle
@@ -29,6 +28,7 @@
         - go
         # node.js
         - node
+        - npm
         # Containers & Cloud
         - awscli
         - boz/repo/kail
@@ -51,8 +51,8 @@
         - gnu-tar
         - gnupg
         - htop
+        - ipcalc
         - nmap
-        - npm
         - pv
         - rbenv
         - tmux
@@ -74,7 +74,6 @@
         # Messaging
         - rambox
         - skype
-        - skype-for-business
         - slack
         # Development
         # - chefdk
